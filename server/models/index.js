@@ -19,9 +19,16 @@ module.exports = {
        }
      });
     }, // a function which produces all the messages
-    post: function () {
+    post: function (message) {
       // create a message
-      db.connection.query('INSERT into messages (text,username,roomname) values ("hi","hi","hi")')
+      console.log('this is the last step!: ',message)
+      var queryString = 'INSERT into messages (text,username,roomname) values ("'+message.text+'","'+message.username+'","'+message.roomname+'")'
+      db.connection.query(queryString, function(err){
+        if(err){console.log('error!: ', err)}
+        else{console.log('successful post!')
+
+        }
+      })
     } // a function which can be used to insert a message into the database
   },
 

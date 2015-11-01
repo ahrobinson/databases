@@ -31,7 +31,7 @@ $(function() {
       app.fetch(false);
 
       // Poll for new messages
-      // setInterval(app.fetch, 3000);
+      setInterval(app.fetch, 3000);
     },
     send: function(data) {
       //app.startSpinner();
@@ -60,13 +60,12 @@ $(function() {
       $.ajax({
         url: app.server,
         type: 'GET',
-        contentType: 'application/json',
+        contentType: 'json',
         // data: { order: '-createdAt'},
         success: function(data) {
           console.log('chatterbox: Messages fetched');
+          var data = JSON.parse(data);
           console.log(data)
-          console.log(JSON.parse(data));
-
           // Don't bother if we have nothing to work with
           if (!data.results || !data.results.length) { return; }
 

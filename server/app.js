@@ -1,5 +1,6 @@
 var express = require('express');
 var db = require('./db');
+var rh = require('./controllers/request-handler.js');
 
 // Middleware
 var morgan = require('morgan');
@@ -24,9 +25,17 @@ app.use("/classes", router);
 // Serve the client files
 app.use(express.static(__dirname + "/../client"));
 
+// Added DB connection
+db.connection.connect(function(err){
+  if(!err) {
+    console.log("Database is connected ... \n\n");
+  } else {
+    console.log("Error connecting database ... \n\n");
+  }
+});
+
 // If we are being run directly, run the server.
 if (!module.parent) {
   app.listen(app.get("port"));
   console.log("Listening on", app.get("port"));
 }
-
